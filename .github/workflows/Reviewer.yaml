@@ -1,6 +1,7 @@
 name: PR Reviewer
 on:
   pull_request:
+  push:
 
 jobs:        
   Review:
@@ -31,11 +32,14 @@ jobs:
           echo "difference hunk = "
           cat difference_hunk.txt
           
-      - name: Cache dependencies
+           # Cache dependencies
+      - name: Cache pip packages
         uses: actions/cache@v3
         with:
-          path: ${{ env.HOME }}/.cache/pip
-          key: ${{ runner.os }}-dependencies-${{ hashFiles('requirements.txt') }}-{{ fileset.modifiedTime('requirements.txt') }}
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
       - uses: actions/setup-python@v4
         with:
             python-version: '3.10' 
