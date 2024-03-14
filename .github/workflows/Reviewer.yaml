@@ -1,6 +1,7 @@
 name: PR Reviewer
 on:
   pull_request:
+  push:
 
 jobs:        
   Review:
