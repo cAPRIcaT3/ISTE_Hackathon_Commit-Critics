@@ -1,6 +1,6 @@
 name: Auto-reply to PR Comment
 
-on: issue_comment
+on: push
 
 jobs:
   example_comment_pr:
