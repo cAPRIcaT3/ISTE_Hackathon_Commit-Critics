@@ -4,7 +4,7 @@ import torch
 from huggingface_hub import hf_hub_download
 from llama_cpp import Llama
 import os
-from rag_pipeline import generate_comment
+from Knowledge_Based_RAG import generate_comment
 
 # Assuming the rest of your setup and GitHub Actions context handling is unchanged
 
