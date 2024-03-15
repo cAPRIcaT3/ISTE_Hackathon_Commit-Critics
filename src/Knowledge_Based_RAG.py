@@ -28,7 +28,7 @@ def setup_rag_pipeline():
         model_path="/path/to/llama-2-13b-chat.ggmlv3.q5_1.bin",
         n_gpu_layers=32,
         n_batch=512,
-        n_ctx=2048,
+        n_ctx=3072,
         f16_kv=True,
     )
 
