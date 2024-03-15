@@ -1,7 +1,6 @@
 import glob
 import os
 import torch
-import re
 from huggingface_hub import hf_hub_download
 from llama_cpp import Llama
 
@@ -14,9 +13,9 @@ model_path = hf_hub_download(repo_id=model_name_or_path, filename=model_basename
 lcpp_llm = Llama(
     model_path=model_path,
     n_threads=2, # CPU cores
-    n_batch=512, # Should be between 1 and n_ctx, consider the amount of VRAM in your GPU.
-    n_gpu_layers=32, # Change this value based on your model and your GPU VRAM pool.
-    n_ctx = 3072
+    n_batch=512, # Should be between 1 and n_ctx, consider the amount of VRAM in your GPU. Higher value for professional github runners. 
+    n_gpu_layers=32, # Change this value based on your model and your GPU VRAM pool. High value tolerated for professional github runners.
+    n_ctx = 3072 # Max context length
     )
 
 # Get the path of the GitHub workspace
