@@ -1,0 +1,27 @@
+name: 'PR Reviewer'
+description: 'Automated code review with Llama CPP'
+branding:
+  icon: 'code-review'
+  color: 'purple'
+
+runs:
+  using: 'composite'
+  steps:
+    - run: ${{ github.action_path }}/reviewer-script.sh
+      shell: bash
+
+inputs:
+  # Define inputs your action expects. For example:
+  GITHUB_TOKEN:
+    description: 'GitHub token for commenting on PRs'
+    required: true
+
+outputs:
+  # Define outputs that your action produces. For example:
+  PR_COMMENT_URL:
+    description: 'The URL of the generated PR comment'
+
+# If your action needs permissions, define them here
+permissions:
+  contents: read
+  pull-requests: write
