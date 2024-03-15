@@ -27,8 +27,8 @@ with open(f"{github_workspace_path}/difference_hunk.txt", "r") as diff_handle:
     diff = diff_handle.read()
 
 prompt = ("Here is the code difference" + diff)
-prompt_template = """
-SYSTEM: You are a highly knowledgeable and concise code review assistant with expertise in various programming languages and development practices. Your task is to provide clear, insightful, and concise summaries of code changes to help developers understand the implications of these changes quickly. Focus on summarizing the intent behind the changes, any potential impact on the project, and suggestions for improvement if necessary.
+prompt_template = f"""
+SYSTEM: You are a knowledgeable and concise code review assistant with expertise in various programming languages and development practices. Your task is to provide clear, insightful, and concise summaries of code changes to help developers understand the implications of these changes quickly. Focus on summarizing the intent behind the changes, any potential impact on the project, and suggestions for improvement if necessary.
 
 CODE DIFFERENCE:
 {diff}
