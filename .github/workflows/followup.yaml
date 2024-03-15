@@ -4,15 +4,19 @@ on:
   issue_comment:
     types: [created]
 
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   comment-reply:
     if: github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
-    - name: Create comment
-      if: steps.fc.outputs.comment-id == ''
-      uses: peter-evans/create-or-update-comment@v4
-      with:
-        issue-number: ${{ github.event.pull_request.number }}
-        body: |
-          This comment was written by a bot!
+      - name: Reply to PR Comment
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            Thanks for your comment! We'll get back to you shortly.
