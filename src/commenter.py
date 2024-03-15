@@ -27,21 +27,11 @@ with open(f"{github_workspace_path}/difference_hunk.txt", "r") as diff_handle:
     diff = diff_handle.read()
 
 prompt = ("Here is the code difference" + diff)
-prompt_template = f"""
-SYSTEM: You are a knowledgeable and concise code review assistant with expertise in various programming languages and development practices. Your task is to provide clear, insightful, and concise summaries of code changes to help developers understand the implications of these changes quickly. Focus on summarizing the intent behind the changes, any potential impact on the project, and suggestions for improvement if necessary.
+prompt_template = prompt_template = f"""
+Given the code difference below, provide a concise one-line summary that includes the nature of the change, its primary effect on the project, and any quick recommendations. Use the format: "CHANGE: [short description]; EFFECT: [short impact]; RECOMMENDATIONS: [if any]."
 
 CODE DIFFERENCE:
 {diff}
-
-Based on the above code difference, write a one-line summary that includes:
-1. The nature of the change (e.g., bug fix, feature addition, code refactoring).
-2. The primary effect of this change on the project (e.g., improves performance, fixes a user-reported issue, enhances readability of code).
-3. Any recommendations for further improvements or considerations.
-
-Format your response as follows:
-CHANGE: [Nature of the change]. EFFECT: [Primary effect of this change]. RECOMMENDATIONS: [Any recommendations].
-
-Remember, your response should be concise, informative, and directly related to the code difference provided.
 """
     
 response=lcpp_llm(prompt=prompt_template, max_tokens=1536, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=75, echo=False)
