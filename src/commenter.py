@@ -7,20 +7,16 @@ import subprocess
 from huggingface_hub import hf_hub_download
 from llama_cpp import Llama
 
-def run_lizard(directory):
-    # Ensure you're running lizard from the current working directory or specify the full path
-    result = subprocess.run(['lizard', directory, '-l', 'cpp', '-l', 'python', '--output_type', 'json'], capture_output=True, text=True)
-    
-    print("STDOUT:", result.stdout)  # For debugging
-    print("STDERR:", result.stderr)  # For debugging
 
+def run_lizard(directory):
+    # Run Lizard and return the complexity report as JSON
+    result = subprocess.run(['lizard', directory, '-l', 'cpp', '-l', 'python', '--json'], capture_output=True, text=True)
+    
     if result.returncode != 0:
         raise Exception("Lizard failed: " + result.stderr)
     
-    if not result.stdout.strip():  # Check if the output is empty
-        raise Exception("No output from Lizard. Is the directory correct?")
-
     return json.loads(result.stdout)
+
 
 model_name_or_path = "TheBloke/Llama-2-13B-chat-GGML"
 model_basename = "llama-2-13b-chat.ggmlv3.q5_1.bin"
