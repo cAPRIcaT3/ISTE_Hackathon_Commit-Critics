@@ -2,3 +2,4 @@ torch
 transformers
 llama-cpp-python==0.1.78
 langchain
+sentence-transformers
