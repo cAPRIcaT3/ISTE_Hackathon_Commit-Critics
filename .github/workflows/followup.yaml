@@ -1,20 +1,25 @@
 name: Auto-reply to PR Comment
 
-on: push
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  issues: write
+  pull-requests: write
 
 jobs:
   example_comment_pr:
+    if: github.event.issue.pull_request # Only run this job for comments on pull requests
     runs-on: ubuntu-latest
-    name: An example job to comment a PR
+    name: An example job to comment on a PR
     steps:
       - name: Create comment
         uses: peter-evans/create-or-update-comment@v4
         with:
-          issue-number: 1
+          issue-number: ${{ github.event.issue.number }} # Dynamically set the issue/pr number
           body: |
             This is a multi-line test comment
             - With GitHub **Markdown** :sparkles:
             - Created by [create-or-update-comment][1]
-
             [1]: https://github.com/peter-evans/create-or-update-comment
-          reactions: '+1'
