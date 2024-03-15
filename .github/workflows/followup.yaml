@@ -1,4 +1,5 @@
 name: Follow up commenter
+
 on:
   issue_comment:
     types: [created, edited]
@@ -7,9 +8,12 @@ jobs:
   create-comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v4
-        with:
+       - name: Checkout
+         uses: actions/checkout@v2
+
+       - name: Create comment
+         uses: peter-evans/create-or-update-comment@v3
+         with:
           issue-number: ${{ github.event.issue.number }}
           body: |
             This is a multi-line test comment
@@ -17,3 +21,4 @@ jobs:
             - Created by [create-or-update-comment][1]
 
             [1]: https://github.com/peter-evans/create-or-update-comment
+          token: ${{ secrets.GITHUB_TOKEN }}
