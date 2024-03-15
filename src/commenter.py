@@ -27,7 +27,10 @@ with open(f"{github_workspace_path}/difference_hunk.txt", "r") as diff_handle:
 
 prompt = ("Here is the code difference" + diff)
 prompt_template = prompt_template = f"""
-Given the code difference below, provide a concise one-line summary that includes the nature of the change, its primary effect on the project, and any quick recommendations. Use the format: "CHANGE: [short description]; EFFECT: [short impact]; RECOMMENDATIONS: [if any]."
+Given the code difference below, provide a concise one-line summary that includes the nature of the change, its primary effect on the project, and any quick recommendations. Use the format: 
+"CHANGE: [long description];
+EFFECT: [impact in points];
+RECOMMENDATIONS: [if any]."
 
 CODE DIFFERENCE:
 {diff}
