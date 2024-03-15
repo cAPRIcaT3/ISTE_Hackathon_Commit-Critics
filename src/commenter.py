@@ -2,6 +2,8 @@ import glob
 import os
 import torch
 import re
+import json
+import subprocess
 from huggingface_hub import hf_hub_download
 from llama_cpp import Llama
 
