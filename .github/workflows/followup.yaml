@@ -1,7 +1,7 @@
 name: Auto-reply to PR Comment
 
 on:
-  push:
+  issue_comment:
 
 permissions:
   issues: write
