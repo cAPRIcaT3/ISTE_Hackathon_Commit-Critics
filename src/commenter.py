@@ -2,8 +2,23 @@ import glob
 import os
 import torch
 import re
+import json
+import subprocess
 from huggingface_hub import hf_hub_download
 from llama_cpp import Llama
+
+
+def run_lizard(directory):
+    # Run Lizard and return the complexity report as JSON
+    result = subprocess.run(['lizard', directory, '-l', 'cpp', '-l', 'python', '-o', 'json'], capture_output=True, text=True)
+    
+    if result.returncode != 0:
+        raise Exception("Lizard failed: " + result.stderr)
+    
+    try:
+        return json.loads(result.stdout)
+    except json.JSONDecodeError as e:
+        raise Exception("Failed to parse JSON output: " + str(e))
 
 
 model_name_or_path = "TheBloke/Llama-2-13B-chat-GGML"
@@ -37,6 +52,8 @@ ASSISTANT:
 response=lcpp_llm(prompt=prompt_template, max_tokens=1536, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=50, echo=False)
 response = response["choices"][0]["text"]
 
+complexity_report = run_lizard(github_workspace_path)
+
 # Write the comment to the output file
 with open("src/files/output.txt", "a") as f:
-  f.write(f"{response}")
+  f.write(f"{response} + \n + \n + {complexity_report} ")
