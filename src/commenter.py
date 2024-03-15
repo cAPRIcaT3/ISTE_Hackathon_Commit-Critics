@@ -44,7 +44,7 @@ CHANGE: [Nature of the change]. EFFECT: [Primary effect of this change]. RECOMME
 Remember, your response should be concise, informative, and directly related to the code difference provided.
 """
     
-response=lcpp_llm(prompt=prompt_template, max_tokens=1536, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=35, echo=False)
+response=lcpp_llm(prompt=prompt_template, max_tokens=1536, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=75, echo=False)
 response = response["choices"][0]["text"]
 
 # Write the comment to the output file
