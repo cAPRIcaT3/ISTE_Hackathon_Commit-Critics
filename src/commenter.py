@@ -10,12 +10,15 @@ from llama_cpp import Llama
 
 def run_lizard(directory):
     # Run Lizard and return the complexity report as JSON
-    result = subprocess.run(['lizard', directory, '-l', 'cpp', '-l', 'python', '--json'], capture_output=True, text=True)
+    result = subprocess.run(['lizard', directory, '-l', 'cpp', '-l', 'python', '-o', 'json'], capture_output=True, text=True)
     
     if result.returncode != 0:
         raise Exception("Lizard failed: " + result.stderr)
     
-    return json.loads(result.stdout)
+    try:
+        return json.loads(result.stdout)
+    except json.JSONDecodeError as e:
+        raise Exception("Failed to parse JSON output: " + str(e))
 
 
 model_name_or_path = "TheBloke/Llama-2-13B-chat-GGML"
