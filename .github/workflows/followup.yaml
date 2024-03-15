@@ -8,11 +8,12 @@ jobs:
   create-comment:
     runs-on: ubuntu-latest
     steps:
+
        - name: Checkout
          uses: actions/checkout@v2
 
        - name: Create comment
-         uses: peter-evans/create-or-update-comment@v3
+         uses: peter-evans/create-or-update-comment@v2
          with:
           issue-number: ${{ github.event.issue.number }}
           body: |
