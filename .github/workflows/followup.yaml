@@ -1,22 +1,17 @@
 name: Auto-reply to PR Comment
 
-on:
-  issue_comment:
-    types: [created]
-
-permissions:
-  issues: write
-  pull-requests: write
+on: issue_comment
 
 jobs:
-  comment-reply:
-    if: github.event.issue.pull_request
+  example_comment_pr:
     runs-on: ubuntu-latest
+    name: An example job to comment a PR
     steps:
-      - name: Reply to PR Comment
-        uses: peter-evans/create-or-update-comment@v1
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Comment PR
+        uses: thollander/actions-comment-pull-request@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          issue-number: ${{ github.event.issue.number }}
-          body: |
-            Thanks for your comment! We'll get back to you shortly.
+          message: |
+            Hello world ! :wave:
